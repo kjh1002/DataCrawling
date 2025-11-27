@@ -31,6 +31,8 @@
     ├── 📓 12장_군집분석.ipynb
     ├── 📓 14장_(1)LSTM주가분석.ipynb
     ├── 📓 14장_(2)Prophet-주가예측분석.ipynb
+    ├── 📓 14장_(3)CNN숫자이미지분류.ipynb
+    ├── 📓 14장_(4)CNN품종분류.ipynb
     ├── main.py
     ├── requirements.txt
     └── pyproject.toml
@@ -68,9 +70,11 @@ uv sync
 ### 12장 - 군집 분석
 - **군집분석**: Online Retail 데이터를 활용한 고객 세그먼트 분석
 
-### 14장 - 시계열 분석
+### 14장 - 딥러닝 분석
 - **LSTM 주가분석**: LSTM 모델을 활용한 구글 주가 예측
 - **Prophet 주가예측**: Facebook Prophet을 이용한 시계열 예측
+- **CNN 숫자이미지분류**: CNN 모델을 활용한 숫자 이미지 분류
+- **CNN 품종분류**: CNN 모델을 활용한 이미지 품종 분류
 
 ---
 
