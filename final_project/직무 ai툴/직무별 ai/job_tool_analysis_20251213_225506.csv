@@ -1,0 +1,68 @@
+﻿직무,AI_툴,리뷰_수,사용_비율(%),평균_평점
+경영/관리,Monday.com,680,29.9,4.59
+경영/관리,Canva,509,22.4,4.87
+경영/관리,Grammarly,444,19.5,4.78
+경영/관리,Tableau,382,16.8,4.51
+경영/관리,Figma,159,7.0,4.75
+경영/관리,Adobe Premiere Pro,97,4.3,4.65
+경영/관리,GitHub Copilot,3,0.1,4.67
+IT/개발,Monday.com,451,24.3,4.52
+IT/개발,Grammarly,415,22.4,4.74
+IT/개발,Tableau,370,20.0,4.51
+IT/개발,Canva,308,16.6,4.83
+IT/개발,Figma,184,9.9,4.74
+IT/개발,Adobe Premiere Pro,116,6.3,4.76
+IT/개발,GitHub Copilot,10,0.5,4.7
+검증된리뷰어,Tableau,525,33.4,4.6
+검증된리뷰어,Grammarly,378,24.1,4.74
+검증된리뷰어,Monday.com,234,14.9,4.49
+검증된리뷰어,Figma,174,11.1,4.64
+검증된리뷰어,Canva,168,10.7,4.76
+검증된리뷰어,Adobe Premiere Pro,83,5.3,4.76
+검증된리뷰어,GitHub Copilot,9,0.6,4.67
+기타,Canva,526,34.4,4.82
+기타,Grammarly,314,20.5,4.74
+기타,Monday.com,291,19.0,4.57
+기타,Tableau,222,14.5,4.59
+기타,Adobe Premiere Pro,113,7.4,4.65
+기타,Figma,61,4.0,4.64
+기타,GitHub Copilot,4,0.3,5.0
+디자인/UX,Figma,192,34.9,4.81
+디자인/UX,Canva,171,31.1,4.68
+디자인/UX,Monday.com,62,11.3,4.6
+디자인/UX,Adobe Premiere Pro,62,11.3,4.66
+디자인/UX,Grammarly,50,9.1,4.76
+디자인/UX,Tableau,12,2.2,4.5
+디자인/UX,GitHub Copilot,1,0.2,4.0
+데이터/분석,Tableau,298,61.1,4.62
+데이터/분석,Monday.com,76,15.6,4.72
+데이터/분석,Grammarly,72,14.8,4.74
+데이터/분석,Canva,25,5.1,4.76
+데이터/분석,Figma,11,2.3,4.64
+데이터/분석,Adobe Premiere Pro,5,1.0,4.6
+데이터/분석,GitHub Copilot,1,0.2,4.0
+마케팅/영업,Canva,108,26.9,4.81
+마케팅/영업,Monday.com,98,24.4,4.58
+마케팅/영업,Grammarly,82,20.4,4.84
+마케팅/영업,Tableau,64,16.0,4.61
+마케팅/영업,Figma,26,6.5,4.73
+마케팅/영업,Adobe Premiere Pro,21,5.2,4.9
+마케팅/영업,GitHub Copilot,2,0.5,5.0
+교육/연구,Canva,104,32.1,4.86
+교육/연구,Grammarly,100,30.9,4.76
+교육/연구,Tableau,73,22.5,4.64
+교육/연구,Monday.com,17,5.2,4.59
+교육/연구,Figma,16,4.9,4.62
+교육/연구,Adobe Premiere Pro,14,4.3,4.57
+프리랜서,Grammarly,94,61.8,4.83
+프리랜서,Canva,25,16.4,4.92
+프리랜서,Adobe Premiere Pro,14,9.2,4.93
+프리랜서,Figma,12,7.9,4.58
+프리랜서,Tableau,5,3.3,4.6
+프리랜서,Monday.com,2,1.3,5.0
+고객지원,Monday.com,24,32.4,4.54
+고객지원,Grammarly,22,29.7,4.86
+고객지원,Tableau,16,21.6,4.56
+고객지원,Canva,9,12.2,4.56
+고객지원,Adobe Premiere Pro,2,2.7,5.0
+고객지원,Figma,1,1.4,5.0

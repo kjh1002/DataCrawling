@@ -10,6 +10,8 @@ dependencies = [
     "folium>=0.20.0",
     "ipykernel>=7.1.0",
     "jupyter>=1.1.1",
+    "kiwipiepy>=0.22.1",
+    "konlpy>=0.6.0",
     "matplotlib>=3.10.7",
     "numpy>=2.3.5",
     "openpyxl>=3.1.5",
@@ -25,5 +27,6 @@ dependencies = [
     "undetected-chromedriver>=3.5.5",
     "uvicorn>=0.38.0",
     "webdriver-manager>=4.0.2",
+    "wordcloud>=1.9.4",
     "yfinance>=0.2.66",
 ]
