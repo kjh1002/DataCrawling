@@ -97,74 +97,32 @@ if __name__ == "__main__":
     
     try:
         all_articles = []
-        max_pages = 10  # 각 카테고리당 크롤링할 페이지 수
+        max_pages = 10
         
         for category in categories:
-            print(f"\n{'='*50}")
-            print(f"[{category.upper()}] 카테고리 크롤링 시작")
-            print(f"{'='*50}")
-            
             for p in range(1, max_pages + 1):
-                print(f"  페이지 {p} 크롤링 중...")
                 articles = get_yozm_articles(driver, category, page=p)
-                print(f"  - {len(articles)}개 기사 수집")
                 
                 if not articles:
-                    print(f"  [{category}] 더 이상 기사가 없습니다.")
                     break
                 
                 all_articles.extend(articles)
-                time.sleep(1)  # 서버 부하 방지
-            
-            print(f"[{category.upper()}] 완료")
+                time.sleep(1)
 
-        print(f"\n{'='*50}")
-        print(f"총 {len(all_articles)}개 기사 수집 완료")
-        print(f"{'='*50}")
-        
-        # DataFrame 생성
         df = pd.DataFrame(all_articles)
         
-        # 카테고리별 통계
-        print("\n카테고리별 기사 수:")
-        print(df['category'].value_counts())
-        
-        # CSV 파일로 저장 (현재 스크립트와 같은 디렉터리)
         import os
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         script_dir = os.path.dirname(os.path.abspath(__file__))
         filename = os.path.join(script_dir, f"yozm_articles_{timestamp}.csv")
         df.to_csv(filename, index=False, encoding='utf-8-sig')
         
-        print(f"\n'{filename}' 파일로 저장되었습니다.")
-        print(f"\n처음 10개 기사:")
-        print(df.head(10))
-        
-        # 워드클라우드 생성
-        print(f"\n{'='*50}")
-        print("워드클라우드 생성 중...")
-        print(f"{'='*50}")
-        
-        # 모든 제목 텍스트 합치기
         all_text = " ".join(df['title'].astype(str).tolist())
-        print(f"총 텍스트 길이: {len(all_text)}자")
-        
-        # 전처리 + 명사 추출
         cleaned = clean_kor(all_text)
-        print(f"전처리 후 텍스트 길이: {len(cleaned)}자")
-        
         tokens = get_nouns(cleaned)
-        print(f"추출된 명사 개수: {len(tokens)}개")
-        
         freq = Counter(tokens)
-        print(f"고유 단어 수: {len(freq)}개")
         
         if freq:
-            print(f"\n상위 20개 단어:")
-            for word, count in freq.most_common(20):
-                print(f"  {word}: {count}번")
-            
-            # 워드클라우드 생성
             wc = WordCloud(
                 font_path="C:/Windows/Fonts/malgun.ttf",
                 width=1200,
@@ -176,7 +134,6 @@ if __name__ == "__main__":
             )
             wc.generate_from_frequencies(freq)
             
-            # 이미지 저장
             plt.figure(figsize=(12, 8))
             plt.imshow(wc, interpolation="bilinear")
             plt.axis("off")
@@ -185,11 +142,7 @@ if __name__ == "__main__":
             
             wordcloud_file = os.path.join(script_dir, "yzitCrawling.png")
             plt.savefig(wordcloud_file, dpi=200, bbox_inches='tight')
-            print(f"\n워드클라우드가 '{wordcloud_file}' 파일로 저장되었습니다.")
-            
             plt.show()
-        else:
-            print("\n단어를 추출할 수 없습니다.")
         
     finally:
         driver.quit()

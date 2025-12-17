@@ -61,8 +61,6 @@ def scroll_to_bottom(driver, pause=0.8, max_scroll=20):
 
 
 def crawl_category_with_selenium(driver, category_slug: str, category_name: str, max_pages: int):
-    print(f"\n[{category_name}] 카테고리 크롤링 시작")
-
     course_data = []
     wait = WebDriverWait(driver, 15)
 
@@ -71,8 +69,6 @@ def crawl_category_with_selenium(driver, category_slug: str, category_name: str,
             url = f"https://www.inflearn.com/courses/{category_slug}"
         else:
             url = f"https://www.inflearn.com/courses/{category_slug}?page_number={page}"
-
-        print(f"  {page}페이지 크롤링 중: {url}")
 
         try:
             driver.get(url)
@@ -130,8 +126,6 @@ def crawl_category_with_selenium(driver, category_slug: str, category_name: str,
             if not page_titles:
                 break
 
-            print(f"  {page}페이지에서 {len(page_titles)}개 강좌 제목 수집")
-
             for title in page_titles:
                 course_data.append({
                     'category': category_name,
@@ -140,21 +134,15 @@ def crawl_category_with_selenium(driver, category_slug: str, category_name: str,
                 })
 
         except Exception as e:
-            print(f"  {page}페이지 크롤링 중 에러 발생: {e}")
             if "chrome" in str(e).lower() or "driver" in str(e).lower():
                 break
             continue
 
-    print(f"[{category_name}] 총 {len(course_data)}개 강좌 수집 완료")
     return course_data
 
 
 def crawl_inflearn_ai_courses(output_csv: str = "./final_project/WebCrawling/inflearnCrawling.csv", headless: bool = True):
     """인프런 AI 강좌 크롤링"""
-    print('=' * 60)
-    print('INFLEARN AI COURSES CRAWLING START (Selenium 동적 크롤링)')
-    print('=' * 60)
-
     driver = None
     all_courses = []
 
@@ -169,13 +157,12 @@ def crawl_inflearn_ai_courses(output_csv: str = "./final_project/WebCrawling/inf
                 info['max_pages']
             )
             all_courses.extend(courses)
-    except Exception as e:
-        print(f"\n크롤링 중 에러 발생: {e}")
+    except Exception:
+        pass
     finally:
         if driver:
             try:
                 driver.quit()
-                print("\n브라우저를 종료했습니다.")
             except Exception:
                 pass
 
@@ -184,19 +171,6 @@ def crawl_inflearn_ai_courses(output_csv: str = "./final_project/WebCrawling/inf
         df_unique = df.drop_duplicates(subset=['title'])
         df_unique = df_unique.sort_values(['category', 'title']).reset_index(drop=True)
         df_unique.to_csv(output_csv, index=False, encoding="utf-8-sig")
-
-        print('\n' + '=' * 60)
-        print(f"총 {len(all_courses)}개(중복 포함) / {len(df_unique)}개(중복 제거) 강좌를 '{output_csv}'에 저장했습니다.")
-        print(f"\n카테고리별 강좌 수:")
-        for info in CATEGORIES.values():
-            category_name = info['name']
-            count = len(df_unique[df_unique['category'] == category_name])
-            print(f"  - {category_name}: {count}개")
-        print('=' * 60)
-    else:
-        print("수집된 강좌가 없습니다.")
-
-    print('FINISHED')
 
 
 if __name__ == "__main__":

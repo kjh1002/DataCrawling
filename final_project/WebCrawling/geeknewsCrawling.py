@@ -67,7 +67,6 @@ def get_nouns(text):
     # 3) 합치기
     return korean_nouns + english_words
 
-print("Selenium 드라이버 시작...")
 driver = get_driver()
 
 try:
@@ -75,33 +74,20 @@ try:
     total_titles = 0
 
     for p in range(1, 100):
-        print(f"\n페이지 {p} 크롤링 중...")
         titles = get_titles(driver, page=p)
-        print(f"  - {len(titles)}개 제목 발견")
         if not titles:
             break
         total_titles += len(titles)
         all_text += " " + " ".join(titles)
 
-    print(f"\n총 {total_titles}개 제목 수집")
-    print(f"총 수집된 텍스트 길이: {len(all_text)}자")
 finally:
     driver.quit()
-    print("드라이버 종료")
 
-# 전처리 + 명사 추출
 cleaned = clean_kor(all_text)
-print(f"전처리 후 텍스트 길이: {len(cleaned)}자")
 tokens = get_nouns(cleaned)
-print(f"추출된 명사 개수: {len(tokens)}개")
-
 freq = Counter(tokens)
-print(f"고유 단어 수: {len(freq)}개")
-if freq:
-    print(f"상위 10개 단어: {freq.most_common(10)}")
 
 if not freq:
-    print("\n단어를 추출할 수 없습니다. 셀렉터 또는 페이지 구조를 다시 확인해주세요.")
     raise SystemExit
 
 # 워드클라우드 생성

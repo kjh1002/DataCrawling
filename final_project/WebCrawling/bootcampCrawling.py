@@ -52,7 +52,7 @@ def extract_title_and_org_from_first_cell(cell_text: str):
 
     start_idx = 0
     for i, line in enumerate(lines):
-        if line.startswith('⏰') or line.startswith('🎁') or line.startswith('D-') or line == 'EVENT':
+        if line.startswith('D-') or line == 'EVENT' or any(ord(c) > 127 for c in line[:2]):
             start_idx = i + 1
         else:
             break
@@ -154,8 +154,6 @@ def scroll_and_collect_data(driver, source_label, max_scrolls=300):
         if not scrollable:
             scrollable = bootcamp_list
         
-        print("  스크롤 컨테이너 발견!")
-        
         collected_data = {}
         consecutive_no_new = 0
         max_no_new = 30
@@ -181,13 +179,11 @@ def scroll_and_collect_data(driver, source_label, max_scrolls=300):
                 except Exception:
                     continue
             
-            if new_count > 0:
-                print(f"  스크롤 {i+1}회: 새로운 {new_count}개 추가 (누적 {len(collected_data)}개)")
+                if new_count > 0:
                 consecutive_no_new = 0
             else:
                 consecutive_no_new += 1
                 if consecutive_no_new >= max_no_new:
-                    print(f"  스크롤 완료: 총 {len(collected_data)}개 수집")
                     break
             
             current_scroll = driver.execute_script("return arguments[0].scrollTop;", scrollable)
@@ -208,7 +204,6 @@ def crawl_boottent_single_page(
     url: str,
     source_label: str = "current",
 ):
-    print(f"\n[{source_label}] 크롤링 시작: {url}")
     driver.get(url)
 
     try:
@@ -220,12 +215,9 @@ def crawl_boottent_single_page(
         time.sleep(3)
         
         results = scroll_and_collect_data(driver, source_label)
-        
-        print(f"  유효한 부트캠프 {len(results)}개 추출 완료")
         return results
 
-    except Exception as e:
-        print(f"  크롤링 중 에러: {e}")
+    except Exception:
         return []
 
 
@@ -239,8 +231,6 @@ def crawl_boottent_data_category(
     all_results = []
 
     try:
-        print("=" * 80)
-        print("=" * 80)
         all_results.extend(
             crawl_boottent_single_page(
                 driver,
@@ -256,19 +246,6 @@ def crawl_boottent_data_category(
         df = pd.DataFrame(all_results)
         df_unique = df.drop_duplicates(subset=["title"], keep="first")
         df_unique.to_csv(output_csv, index=False, encoding="utf-8-sig")
-
-        print("\n" + "=" * 80)
-        print(f"저장 파일: {output_csv}")
-        print("=" * 80)
-        
-        for idx, row in df_unique.head(5).iterrows():
-            title_short = row['title'][:50] + "..." if len(row['title']) > 50 else row['title']
-            keywords_short = row['keywords'][:80] + "..." if len(row['keywords']) > 80 else row['keywords']
-            print(f"\n{idx+1}. {title_short}")
-            print(f"   키워드: {keywords_short}")
-            
-    else:
-        print("\n추출된 부트캠프가 없습니다.")
 
     return all_results
 
